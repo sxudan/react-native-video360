@@ -1,6 +1,6 @@
 # react-native-video360
 
-This package will let you play 360 videos
+This package will let you play 360 videos. This module to play 360 videos, using the SGPlayer for iOS, and Google VR for Android.
 
 ## Installation
 
