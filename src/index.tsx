@@ -1,9 +1,10 @@
-import { NativeModules, Platform, requireNativeComponent } from 'react-native';
-const LINKING_ERROR =
-  `The package 'react-native-video360' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
+import { requireNativeComponent } from 'react-native';
+import React from 'react';
+// const LINKING_ERROR =
+//   `The package 'react-native-video360' doesn't seem to be linked. Make sure: \n\n` +
+//   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+//   '- You rebuilt the app after installing the package\n' +
+//   '- You are not using Expo Go\n';
 
 
 // const Video360 = NativeModules.Video360
