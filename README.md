@@ -11,11 +11,12 @@ npm install react-native-video360
 ## Usage
 
 ```js
-import { multiply } from 'react-native-video360';
+import { StyleSheet, Modal } from 'react-native';
+import {Video360Mode, Video360Player} from 'react-native-video360';
 
 // ...
 
-const result = await multiply(3, 7);
+<Video360Player style={{flex: 1}} urlVideo={''} modeVideo={Video360Mode.AVPlayerVR}/>
 ```
 
 ## Contributing
