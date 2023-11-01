@@ -8,6 +8,15 @@ This package will let you play 360 videos. This module to play 360 videos, using
 npm install react-native-video360
 ```
 
+## Note
+If you want to run it on simulator uncomment the code in podspec file and comment out the production line
+```
+# dev simulator
+ # s.ios.vendored_frameworks = 'Frameworks/SGPlayer.framework','Frameworks/SGPlatform.framework'
+ # production
+ s.ios.vendored_frameworks = 'Frameworks/arm/SGPlayer.framework','Frameworks/arm/SGPlatform.framework'
+```
+
 ## Usage
 
 ```js
