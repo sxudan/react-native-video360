@@ -20,6 +20,9 @@ s.ios.vendored_frameworks = 'Frameworks/SGPlayer.framework','Frameworks/SGPlatfo
  # production
  #s.ios.vendored_frameworks = 'Frameworks/arm/SGPlayer.framework','Frameworks/arm/SGPlatform.framework'
 ```
+Note for ios simulator:
+
+Open your ios project with Xcode and Go to build settings > excluded architecture > Debug > Any ios simulator SDK = 'arm64'
 
 For Device
 ```
