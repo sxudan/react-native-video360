@@ -9,11 +9,11 @@ npm install react-native-video360
 ```
 
 ## Note
-If you want to run it on simulator or vise-versa 
+If you want to run it on simulator 
 
 Go to node_modules/react-native-video360/react-native-video360.podspec and update as below
 
-Simulator 
+For Simulator 
 ```
 # dev simulator
 s.ios.vendored_frameworks = 'Frameworks/SGPlayer.framework','Frameworks/SGPlatform.framework'
@@ -21,7 +21,7 @@ s.ios.vendored_frameworks = 'Frameworks/SGPlayer.framework','Frameworks/SGPlatfo
  #s.ios.vendored_frameworks = 'Frameworks/arm/SGPlayer.framework','Frameworks/arm/SGPlatform.framework'
 ```
 
-Device
+For Device
 ```
 # dev simulator
 #s.ios.vendored_frameworks = 'Frameworks/SGPlayer.framework','Frameworks/SGPlatform.framework'
@@ -30,6 +30,9 @@ s.ios.vendored_frameworks = 'Frameworks/arm/SGPlayer.framework','Frameworks/arm/
 ```
 
 If you are using the example just change react-native-video360.podspec and uncomment the lines as above
+
+
+Note: Dont forget to pod install again
 
 ## Usage
 
