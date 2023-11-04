@@ -44,7 +44,11 @@
     "VR",
     "Video Player"
   ],
-  "categories": ["Programming Languages", "Education", "Other"],
+  "categories": [
+    "Programming Languages",
+    "Education",
+    "Other"
+  ],
   "repository": "https://github.com/sxudan/react-native-video360",
   "author": "sudan <sudosuwal@gmail.com> (https://github.com/sxudan)",
   "license": "MIT",

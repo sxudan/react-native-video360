@@ -42,6 +42,13 @@ export interface Video360Props {
     height?: number
     flex?: number
   }
+  volume?: number
+  displayMode?:string
+  enableInfoButton?:boolean
+  enableFullscreenButton?:boolean
+  enableCardboardButton?:boolean
+  enableTouchTracking?:boolean
+  hidesTransitionView?: boolean
 }
 
 export const Video360Player = (props: Video360Props) => {

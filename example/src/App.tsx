@@ -1,15 +1,27 @@
 import * as React from 'react';
-
-import { StyleSheet, Modal } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator, } from '@react-navigation/native-stack';
+import { StyleSheet } from 'react-native';
 import {Video360Mode, Video360Player} from 'react-native-video360';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
 
   return (
-    <Modal style={styles.container}>
-      <Video360Player style={{flex: 1}} urlVideo={''} modeVideo={Video360Mode.AVPlayerVR}/>
-    </Modal>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen component={Home} name='Home' options={{orientation: 'landscape_left', headerShown: false}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
+}
+
+function Home() {
+
+  return (
+    <Video360Player style={{flex: 1}} urlVideo={''} modeVideo={Video360Mode.AVPlayerVR}/>
+  )
 }
 
 const styles = StyleSheet.create({
