@@ -1,6 +1,6 @@
 {
   "name": "react-native-video360",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "This package will let you play 360 videos. This module to play 360 videos, using the SGPlayer for iOS, and Google VR for Android.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
