@@ -227,7 +227,6 @@ public class Video360Activity extends Activity {
         public void onStopTrackingTouch(SeekBar seekBar) { }
     }
 
-
     /**
      * Listen to the important events from widget.
      */

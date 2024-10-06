@@ -1,5 +1,8 @@
 buildscript {
   repositories {
+    flatDir {
+      dirs 'libs'
+    }
     google()
     mavenCentral()
   }
@@ -90,6 +93,11 @@ dependencies {
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
-  implementation 'com.google.vr:sdk-videowidget:1.170.0'
+
+//  implementation 'com.google.vr:sdk-videowidget:1.170.0'
+//  implementation(name: 'videowidget', ext: 'aar')
+  implementation files('libs/sdk-videowidget-1.170.0.aar')
+  implementation files('libs/sdk-commonwidget-1.170.0.aar')
+  implementation files('libs/sdk-common-1.170.0.aar')
 }
 
