@@ -96,8 +96,10 @@ dependencies {
 
 //  implementation 'com.google.vr:sdk-videowidget:1.170.0'
 //  implementation(name: 'videowidget', ext: 'aar')
-  implementation files('libs/sdk-videowidget-1.170.0.aar')
-  implementation files('libs/sdk-commonwidget-1.170.0.aar')
-  implementation files('libs/sdk-common-1.170.0.aar')
+  implementation files('libs/sdk-base-1.180.0.aar')
+  implementation files('libs/sdk-videowidget-1.180.0.aar')
+  implementation files('libs/sdk-commonwidget-1.180.0.aar')
+  implementation files('libs/sdk-common-1.180.0.aar')
+
 }
 

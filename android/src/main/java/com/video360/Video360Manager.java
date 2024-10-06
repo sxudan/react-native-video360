@@ -31,6 +31,8 @@ import com.google.vr.sdk.widgets.video.VrVideoEventListener;
 import com.google.vr.sdk.widgets.video.VrVideoView;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Video360Manager extends SimpleViewManager {
   private static final String CLASS_NAME = "Video360";
@@ -101,6 +103,8 @@ public class Video360Manager extends SimpleViewManager {
     view.setInfoButtonEnabled(enabled);
   }
 
+  VideoLoaderTask videoLoaderTask;
+
   @ReactProp(name = "urlVideo")
   public void setVideo(VrVideoView view, String url) {
     // String type = config.getString("type");
@@ -124,8 +128,8 @@ public class Video360Manager extends SimpleViewManager {
 //                break;
 //        }
 
-    VideoLoaderTask videoLoaderTask = new VideoLoaderTask();
-    videoLoaderTask.execute(Pair.create(uri, videoOptions));
+    videoLoaderTask = new VideoLoaderTask(view);
+    videoLoaderTask.loadVideo(uri, videoOptions);
   }
 
   private class ActivityEventListener extends VrVideoEventListener {
@@ -162,14 +166,41 @@ public class Video360Manager extends SimpleViewManager {
     }
   }
 
-  class VideoLoaderTask extends AsyncTask<Pair<Uri, VrVideoView.Options>, Void, Boolean> {
-    @SuppressWarnings("WrongThread")
-    protected Boolean doInBackground(Pair<Uri, VrVideoView.Options>... args) {
-      try {
-        view.loadVideo(args[0].first, args[0].second);
-      } catch (IOException e) {}
+  public class VideoLoaderTask {
 
-      return true;
+    private VrVideoView view;
+    private ExecutorService executorService;
+
+    public VideoLoaderTask(VrVideoView vrVideoView) {
+      this.view = vrVideoView;
+      this.executorService = Executors.newSingleThreadExecutor();
+    }
+
+    // Function to load video
+    public void loadVideo(Uri uri, VrVideoView.Options options) {
+      executorService.submit(() -> {
+        try {
+          view.loadVideo(uri, options); // Loading video in the background
+        } catch (IOException e) {
+          e.printStackTrace(); // Handle the exception
+        }
+      });
+    }
+
+    // Shutdown the executor service when done
+    public void shutdown() {
+      executorService.shutdown();
     }
   }
+
+//  class VideoLoaderTask extends AsyncTask<Pair<Uri, VrVideoView.Options>, Void, Boolean> {
+//    @SuppressWarnings("WrongThread")
+//    protected Boolean doInBackground(Pair<Uri, VrVideoView.Options>... args) {
+//      try {
+//        view.loadVideo(args[0].first, args[0].second);
+//      } catch (IOException e) {}
+//
+//      return true;
+//    }
+//  }
 }

@@ -17,6 +17,8 @@ import com.google.vr.sdk.widgets.video.VrVideoEventListener;
 import com.google.vr.sdk.widgets.video.VrVideoView;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import androidx.annotation.Nullable;
 
@@ -282,38 +284,81 @@ public class Video360Activity extends Activity {
     /**
      * Helper class to manage threading.
      */
-    class VideoLoaderTask extends AsyncTask<Pair<Uri, VrVideoView.Options>, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Pair<Uri, VrVideoView.Options>... fileInformation) {
-            try {
-         /*if (fileInformation == null || fileInformation.length < 1
-          || fileInformation[0] == null || fileInformation[0].first == null) {
-          // No intent was specified, so we default to playing the local stereo-over-under video.
-          Options options = new Options();
-          options.inputType = Options.TYPE_STEREO_OVER_UNDER;
-          videoWidgetView.loadVideoFromAsset("congo.mp4", options);
-         } else {*/
-                VrVideoView.Options options = new VrVideoView.Options();
-                //options.inputFormat = VrVideoView.Options.FORMAT_DEFAULT;
-                options.inputType = VrVideoView.Options.TYPE_MONO;
-                videoWidgetView.loadVideo(Uri.parse(videoURL), options);
-                //}
-            } catch (IOException e) {
-                // An error here is normally due to being unable to locate the file.
-                loadVideoStatus = LOAD_VIDEO_STATUS_ERROR;
-                // Since this is a background thread, we need to switch to the main thread to show a toast.
-                videoWidgetView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast
-                                .makeText(Video360Activity.this, "Error con el video. ", Toast.LENGTH_LONG)
-                                .show();
-                    }
-                });
-                Log.e(TAG, "No se pudo abrir el video: " + e);
-            }
 
-            return true;
-        }
+    public class VideoLoaderTask {
+
+      private VrVideoView view;
+      private ExecutorService executorService;
+
+      public VideoLoaderTask(VrVideoView vrVideoView) {
+        this.view = vrVideoView;
+        this.executorService = Executors.newSingleThreadExecutor();
+      }
+
+      // Function to load video
+      public void loadVideo(Uri uri) {
+        executorService.submit(() -> {
+          try {
+            VrVideoView.Options options = new VrVideoView.Options();
+            //options.inputFormat = VrVideoView.Options.FORMAT_DEFAULT;
+            options.inputType = VrVideoView.Options.TYPE_MONO;
+            view.loadVideo(Uri.parse(videoURL), options);
+            //}
+          } catch (IOException e) {
+            // An error here is normally due to being unable to locate the file.
+            loadVideoStatus = LOAD_VIDEO_STATUS_ERROR;
+            // Since this is a background thread, we need to switch to the main thread to show a toast.
+            view.post(new Runnable() {
+              @Override
+              public void run() {
+                Toast
+                  .makeText(Video360Activity.this, "Error con el video. ", Toast.LENGTH_LONG)
+                  .show();
+              }
+            });
+            Log.e(TAG, "No se pudo abrir el video: " + e);
+          }
+
+        });
+      }
+
+      // Shutdown the executor service when done
+      public void shutdown() {
+        executorService.shutdown();
+      }
     }
+//    class VideoLoaderTask extends AsyncTask<Pair<Uri, VrVideoView.Options>, Void, Boolean> {
+//        @Override
+//        protected Boolean doInBackground(Pair<Uri, VrVideoView.Options>... fileInformation) {
+//            try {
+//         /*if (fileInformation == null || fileInformation.length < 1
+//          || fileInformation[0] == null || fileInformation[0].first == null) {
+//          // No intent was specified, so we default to playing the local stereo-over-under video.
+//          Options options = new Options();
+//          options.inputType = Options.TYPE_STEREO_OVER_UNDER;
+//          videoWidgetView.loadVideoFromAsset("congo.mp4", options);
+//         } else {*/
+//                VrVideoView.Options options = new VrVideoView.Options();
+//                //options.inputFormat = VrVideoView.Options.FORMAT_DEFAULT;
+//                options.inputType = VrVideoView.Options.TYPE_MONO;
+//                videoWidgetView.loadVideo(Uri.parse(videoURL), options);
+//                //}
+//            } catch (IOException e) {
+//                // An error here is normally due to being unable to locate the file.
+//                loadVideoStatus = LOAD_VIDEO_STATUS_ERROR;
+//                // Since this is a background thread, we need to switch to the main thread to show a toast.
+//                videoWidgetView.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast
+//                                .makeText(Video360Activity.this, "Error con el video. ", Toast.LENGTH_LONG)
+//                                .show();
+//                    }
+//                });
+//                Log.e(TAG, "No se pudo abrir el video: " + e);
+//            }
+//
+//            return true;
+//        }
+//    }
 }
